@@ -1,0 +1,11 @@
+(load-file "/home/yakoub/.emacs-conf/python/epy-init.el")
+(add-to-list 'load-path "~/.emacs-conf")
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-clarity)
+
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+
