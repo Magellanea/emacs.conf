@@ -1,11 +1,16 @@
 (add-to-list 'load-path "~/.emacs-conf")
 (add-to-list 'load-path "/home/yakoub/.emacs.d/color-theme-6.6.0")
+(add-to-list 'load-path "/home/yakoub/.emacs.d/ecb-master")
+
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-clarity)
+
+(require 'ecb)
+(require 'ecb-autoloads)
+
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-f") 'isearch-forward-regexp)
-
