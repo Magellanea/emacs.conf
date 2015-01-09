@@ -18,6 +18,12 @@
 (require 'package)
 (add-to-list 'package-archives
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+
 (package-initialize)
 (elpy-enable)
 
@@ -72,6 +78,62 @@
                :features yaml-mode)))
 (el-get 'sync)
 
+;; melpa packages
+
+(defvar my-melpa-packages
+  '(
+    company-math
+    )
+  "A list of packages to install from MELPA at launch.")
+
+;;; melpa config
+
+(defun my-melpa-packages-installed-p ()
+  "Check if all packages in `my-melpa-packages' are installed."
+  (every #'package-installed-p my-melpa-packages))
+
+(defun require-my-melpa-package (package)
+  "Install PACKAGE unless already installed."
+  (unless (memq package my-melpa-packages)
+    (add-to-list 'my-melpa-packages package))
+  (unless (package-installed-p package)
+    (package-install package)))
+
+(defun require-my-melpa-packages (packages)
+  "Ensure PACKAGES are installed.
+Missing packages are installed automatically."
+  (mapc #'require-my-melpa-package packages))
+
+(defun install-my-melpa-packages ()
+  "Install all packages listed in `my-melpa-packages'."
+  (unless (my-melpa-packages-installed-p)
+    ;; check for new packages (package versions)
+    (message "%s" "Refreshing its package database...")
+    (package-refresh-contents)
+    (message "%s" " done.")
+    ;; install the missing packages
+    (require-my-melpa-packages my-melpa-packages)))
+
+;; Install Melpa packages
+(install-my-melpa-packages)
+
+;; package recipes
+
+(setq
+ ac-el-get-packages
+ '(el-get
+   auto-complete))
+
+(el-get 'sync ac-el-get-packages) 
+
+(setq
+ math-el-get-packages
+ '(el-get
+   ac-math))
+
+
+(el-get 'sync math-el-get-packages) 
+
 ;;configure autocomplete plugin
 (require 'auto-complete-config)
  (add-to-list 'ac-dictionary-directories
@@ -118,3 +180,33 @@
 
 (require 'auto-complete-clang)
 (define-key c++-mode-map (kbd "<C-tab>") 'ac-complete-clang)
+
+;; company mode autocomplete
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; AUCTex plugin
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+;; compile to pdf by default
+(require 'tex)
+(setq TeX-PDF-mode t)
+;; company-math mode
+(add-to-list 'company-backends 'company-math-symbols-unicode)
+(add-to-list 'company-backends 'company-math-symbols-latex)
+(add-to-list 'company-backends 'company-latex-commands)
+
+;; local configuration for TeX modes
+(defun my-latex-mode-setup ()
+  (setq-local company-backends
+              (append '(company-math-symbols-latex company-latex-commands)
+                      company-backends)))
+
+(add-hook 'TeX-mode-hook 'my-latex-mode-setup)
