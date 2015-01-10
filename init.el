@@ -83,6 +83,8 @@
 (defvar my-melpa-packages
   '(
     company-math
+	enh-ruby-mode
+	robe
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -210,3 +212,10 @@ Missing packages are installed automatically."
                       company-backends)))
 
 (add-hook 'TeX-mode-hook 'my-latex-mode-setup)
+;; Allow region selection deletion
+(delete-selection-mode 1)
+
+
+;;ruby robe-mode configurations
+(add-hook 'ruby-mode-hook 'robe-mode)
+(push 'company-robe company-backends)
