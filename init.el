@@ -35,6 +35,9 @@
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-f") 'isearch-forward-regexp)
+(global-set-key (kbd "C-l") 'goto-line)
+;; fuzzy keybinding
+(global-set-key (kbd "C-u") 'fiplr-find-file)
 
 ;;;Install el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -85,6 +88,7 @@
     company-math
 	enh-ruby-mode
 	robe
+	fiplr
     )
   "A list of packages to install from MELPA at launch.")
 
