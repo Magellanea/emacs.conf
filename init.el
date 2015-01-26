@@ -36,6 +36,7 @@
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-f") 'isearch-forward-regexp)
 (global-set-key (kbd "C-l") 'goto-line)
+(global-set-key (kbd "C-;") 'kill-whole-line)
 ;; fuzzy keybinding
 (global-set-key (kbd "C-u") 'fiplr-find-file)
 
@@ -89,6 +90,8 @@
 	enh-ruby-mode
 	robe
 	fiplr
+	lua-mode
+	cython-mode
     )
   "A list of packages to install from MELPA at launch.")
 
