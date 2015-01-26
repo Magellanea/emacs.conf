@@ -11,10 +11,8 @@
  ;; If there is more than one, they won't work right.
  )
 (add-to-list 'load-path "~/.emacs-conf")
-(add-to-list 'load-path "/home/yakoub/.emacs.d/color-theme-6.6.0")
 (add-to-list 'load-path "/home/yakoub/.emacs.d/ecb-master")
 
-(require 'color-theme)
 (require 'package)
 (add-to-list 'package-archives
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
@@ -26,9 +24,6 @@
 
 (package-initialize)
 (elpy-enable)
-
-(color-theme-initialize)
-(color-theme-clarity)
 
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
@@ -92,6 +87,7 @@
 	fiplr
 	lua-mode
 	cython-mode
+	lush-theme
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -125,6 +121,10 @@ Missing packages are installed automatically."
 
 ;; Install Melpa packages
 (install-my-melpa-packages)
+
+;; color-theme
+
+(load-theme 'lush t)
 
 ;; package recipes
 
