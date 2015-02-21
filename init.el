@@ -34,6 +34,8 @@
 (global-set-key (kbd "C-;") 'kill-whole-line)
 ;; fuzzy keybinding
 (global-set-key (kbd "C-u") 'fiplr-find-file)
+;; complete file name
+(global-set-key "\M- " 'hippie-expand)
 
 ;;;Install el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
