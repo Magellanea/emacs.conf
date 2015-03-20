@@ -36,6 +36,9 @@
 (global-set-key (kbd "C-u") 'fiplr-find-file)
 ;; complete file name
 (global-set-key "\M- " 'hippie-expand)
+;; comment region
+(global-set-key "\M-;" 'uncomment-region)
+(global-set-key "\M-#" 'uncomment-region)
 
 ;;;Install el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -91,6 +94,7 @@
 	cython-mode
 	lush-theme
 	irony
+	yaml-mode
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -228,3 +232,10 @@ Missing packages are installed automatically."
 ;;ruby robe-mode configurations
 (add-hook 'ruby-mode-hook 'robe-mode)
 (push 'company-robe company-backends)
+
+
+;;yaml config
+(require 'yaml-mode)
+(add-hook 'yaml-mode-hook
+		  '(lambda ()
+			 (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
