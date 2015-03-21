@@ -95,6 +95,7 @@
 	lush-theme
 	irony
 	yaml-mode
+	highlight-symbol
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -239,3 +240,11 @@ Missing packages are installed automatically."
 (add-hook 'yaml-mode-hook
 		  '(lambda ()
 			 (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
+;;highlight mode
+(require 'highlight-symbol)
+(global-set-key [f3] 'highlight-symbol-at-point)
+(global-set-key [f5] 'highlight-symbol-next)
+(global-set-key [(shift f3)] 'highlight-symbol-prev)
+(global-set-key [(control f5)] 'highlight-symbol-query-replace)
+
