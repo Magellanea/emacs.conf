@@ -11,7 +11,7 @@
  ;; If there is more than one, they won't work right.
  )
 (add-to-list 'load-path "~/.emacs-conf")
-(add-to-list 'load-path "/home/yakoub/.emacs.d/ecb-master")
+(add-to-list 'load-path "~/.emacs.d/ecb-master")
 
 (require 'package)
 (add-to-list 'package-archives
@@ -96,6 +96,7 @@
 	irony
 	yaml-mode
 	highlight-symbol
+	sphinx-doc
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -198,6 +199,32 @@ Missing packages are installed automatically."
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
+;; Allow region selection deletion
+(delete-selection-mode 1)
+
+
+;;ruby robe-mode configurations
+(add-hook 'ruby-mode-hook 'robe-mode)
+(push 'company-robe company-backends)
+
+
+;;yaml config
+(require 'yaml-mode)
+(add-hook 'yaml-mode-hook
+		  '(lambda ()
+			 (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
+;;highlight mode
+(require 'highlight-symbol)
+(global-set-key [f3] 'highlight-symbol-at-point)
+(global-set-key [f5] 'highlight-symbol-next)
+(global-set-key [(shift f3)] 'highlight-symbol-prev)
+(global-set-key [(control f5)] 'highlight-symbol-query-replace)
+
+;;enable sphinx-doc-mode
+(add-hook 'python-mode-hook (lambda ()
+			      (require 'sphinx-doc)
+			      (sphinx-doc-mode t)))
 
 
 ;; AUCTex plugin
@@ -226,25 +253,3 @@ Missing packages are installed automatically."
                       company-backends)))
 
 (add-hook 'TeX-mode-hook 'my-latex-mode-setup)
-;; Allow region selection deletion
-(delete-selection-mode 1)
-
-
-;;ruby robe-mode configurations
-(add-hook 'ruby-mode-hook 'robe-mode)
-(push 'company-robe company-backends)
-
-
-;;yaml config
-(require 'yaml-mode)
-(add-hook 'yaml-mode-hook
-		  '(lambda ()
-			 (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
-
-;;highlight mode
-(require 'highlight-symbol)
-(global-set-key [f3] 'highlight-symbol-at-point)
-(global-set-key [f5] 'highlight-symbol-next)
-(global-set-key [(shift f3)] 'highlight-symbol-prev)
-(global-set-key [(control f5)] 'highlight-symbol-query-replace)
-
