@@ -97,6 +97,7 @@
 	yaml-mode
 	highlight-symbol
 	sphinx-doc
+	go-mode
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -253,3 +254,9 @@ Missing packages are installed automatically."
                       company-backends)))
 
 (add-hook 'TeX-mode-hook 'my-latex-mode-setup)
+
+
+;; Go-mode
+(require 'go-mode-autoloads)
+(add-to-list 'load-path "$GOPATH/src/github.com/dougm/goflymake")
+(require 'go-flymake)
