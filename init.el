@@ -98,6 +98,7 @@
 	highlight-symbol
 	sphinx-doc
 	go-mode
+	company-go
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -258,5 +259,8 @@ Missing packages are installed automatically."
 
 ;; Go-mode
 (require 'go-mode-autoloads)
-(add-to-list 'load-path "$GOPATH/src/github.com/dougm/goflymake")
-(require 'go-flymake)
+(shell-command "go get -u github.com/nsf/gocode")
+(add-hook 'go-mode-hook 'company-mode)
+(add-hook 'go-mode-hook (lambda ()
+  (set (make-local-variable 'company-backends) '(company-go))
+  (company-mode)))
