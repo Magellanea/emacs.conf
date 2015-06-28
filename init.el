@@ -17,8 +17,6 @@
 (add-to-list 'package-archives
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives
              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 
@@ -97,8 +95,8 @@
 	yaml-mode
 	highlight-symbol
 	sphinx-doc
-	go-mode
-	company-go
+	elixir-mode
+	alchemist
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -140,26 +138,12 @@ Missing packages are installed automatically."
 ;; package recipes
 
 (setq
- ac-el-get-packages
- '(el-get
-   auto-complete))
-
-(el-get 'sync ac-el-get-packages) 
-
-(setq
  math-el-get-packages
  '(el-get
    ac-math))
 
 
 (el-get 'sync math-el-get-packages) 
-
-;;configure autocomplete plugin
-(require 'auto-complete-config)
- (add-to-list 'ac-dictionary-directories
-     "~/.emacs./elpa/auto-complete-20141208.809/dict")
- (ac-config-default)
- (setq ac-ignore-case nil)
 
 ;; configure ecb
 (require 'ecb)
@@ -256,11 +240,6 @@ Missing packages are installed automatically."
 
 (add-hook 'TeX-mode-hook 'my-latex-mode-setup)
 
+(require 'elixir-mode)
+(require 'alchemist)
 
-;; Go-mode
-(require 'go-mode-autoloads)
-(shell-command "go get -u github.com/nsf/gocode")
-(add-hook 'go-mode-hook 'company-mode)
-(add-hook 'go-mode-hook (lambda ()
-  (set (make-local-variable 'company-backends) '(company-go))
-  (company-mode)))
